@@ -23,6 +23,12 @@ int main()
 		}
 		nYYYY1 = nTime1 / 10000, nMM1 = nTime1 / 10000 % 100, nDD1 = nTime1 % 100;
 		nYYYY2 = nTime2 / 10000, nMM2 = nTime2 / 10000 % 100, nDD2 = nTime2 % 100;
+		if(nMM1 > 13 || nMM2 > 13 || nDD1 > 31 || nDD2 > 31)
+		{
+			printf("input error, please input correct date\n");
+			continue;
+		}
+
 		int nAnswer = 1;  //¼ÇÂ¼½á¹û
 		while(nYYYY1 < nYYYY2 || nMM1 < nMM2 || nDD1 < nDD2)
 		{
@@ -30,12 +36,12 @@ int main()
 			if(nDD1 == month[nMM1][isLeap(nYYYY1)] + 1)
 			{
 				nMM1++;
-				nDD1++;
+				nDD1 = 1;
 			}
 			if(nMM1 == 13)
 			{
 				nYYYY1++;
-				nMM1++;
+				nMM1 = 1;
 			}
 			nAnswer++;
 		}
