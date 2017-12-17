@@ -33,7 +33,7 @@ int main()
 		int nLastX = tSegment[0].x;
 		for(int i = 1; i < nNum; i++)
 		{
-			if(tSegment[i].y < nLastX)
+			if(tSegment[i].y <= nLastX)
 			{
 				nLastX = tSegment[i].x;
 				nAns++;
