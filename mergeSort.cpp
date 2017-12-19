@@ -1,5 +1,5 @@
 /*
-	归并排序:注意merge()函数的边界挑拣是R1和R2，不要错误写成L1和L2，还有最后merge()函数中最后for循环的下标是从L1+K开始偏移
+	归并排序:注意merge()函数的边界条件是R1和R2，不要错误写成L1和L2，还有最后merge()函数中最后for循环的下标是从L1+K开始偏移
 */
 #include <cstdio>
 using namespace std;
@@ -37,7 +37,7 @@ void mergeSort(int A[], int left, int right)
 }
 int main()
 {
-	int A[10] = {3, 10, 23457, 65535, 9, 15, 7, 654, 10, 987};
+	int A[10] = {1234567, 10, 23457, 65535, 9, 15, 7, 654, 10, 987};
 	mergeSort(A, 0, 9);
 	for(int i = 0; i < 10; i++)
 		printf("%d ", A[i]);
