@@ -47,7 +47,7 @@ int main()
 		}
 		sort(stu + num - k, stu + num, cmp);  //将本班学生排名
 		stu[num - k].local_rank = 1;		  //记录本班的第一名是等级1
-		for(int j = num - k + 1; j < num; j++) 
+		for(int j = num - k + 1; j < num; j++)  //这个班的边界条件, 班里排出等级
 		{
 			if(stu[j].score == stu[j - 1].score)
 			{
@@ -55,7 +55,7 @@ int main()
 			}	
 			else
 			{
-				stu[j].local_rank = j + 1 - (num - k);
+				stu[j].local_rank = j + 1 - (num - k); //注意这里的计算方法
 			}
 		}
 	}
