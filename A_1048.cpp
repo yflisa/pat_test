@@ -1,3 +1,5 @@
+/*
+solution1:
 #include <cstdio>
 #include <algorithm>
 using namespace std;
@@ -34,6 +36,71 @@ int main()
 		if(j != -1 && i != j)
 		{
 			printf("%d %d", N[i], N[j]);
+			return 0;
+		}
+	}
+	printf("No Solution");
+	return 0;
+}
+*/
+
+
+/*
+solution 2:
+#include <cstdio>
+#include <algorithm>
+using namespace std;
+int n, m;
+int A[10010];
+int main()
+{
+	scanf("%d %d", &n, &m);
+	for(int i = 0; i < n; i++)
+		scanf("%d", &A[i]);
+	sort(A, A + n);
+	int i = 0, j = n - 1;
+	while(i < j)
+	{
+		if(A[i] + A[j] == m)
+		{
+			break;
+		}
+		else if(A[i] + A[j] < m)
+			i++;
+		else
+			j--;
+	}
+	if(i < j)
+		printf("%d %d", A[i], A[j]);
+	else
+		printf("No Solution\n");
+	return 0;
+}
+*/
+
+#include <cstdio>
+#include <algorithm>
+using namespace std;
+const int N = 1005;
+int hashtable[N];
+
+int main()
+{
+	int n, m, a;
+	scanf("%d%d", &n, &m);
+	for(int i = 0; i < n; i++)
+	{
+		scanf("%d", &a);
+		hashtable[a]++;
+	}
+
+	for(int i = 0; i < m; i++)
+	{
+		if(hashtable[i] && hashtable[m - i])
+		{
+			if(i == m - i && hashtable[i] <= 1)
+				continue;
+			printf("%d %d", i, m - i);
 			return 0;
 		}
 	}
