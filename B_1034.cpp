@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <algorithm>
+using namespace std;
 typedef long long LL;
 struct Fraction
 {
@@ -144,6 +145,7 @@ int main()
 	else
 	{
 		bool flag = false;
+		f1 = reduction(f1);
 		if(f1.up * f1.down < 0)
 		{
 			printf("(");
@@ -151,7 +153,7 @@ int main()
 		}
 		if(f1.down == 1)
 			printf("%lld", f1.up);
-		else if(f1.up > f1.down)
+		else if(abs(f1.up) > f1.down)
 			printf("%lld %lld/%lld", f1.up / f1.down, abs(f1.up) % f1.down, f1.down);
 		else 
 			printf("%lld/%lld", f1.up, f1.down);
