@@ -1,18 +1,18 @@
 #include <cstdio>
 #include <cmath>
 int n, m, num = 0;
-const int maxn = 10010;
+const int maxn = 110001;
 bool prime[maxn] = {false};
 int is_prime[maxn] = {0};
 
 void find_prime(int n)
 {
-	for(int i = 2; i < 1010; i++)
+	for(int i = 2; i < maxn; i++)
 	{
 		if(prime[i] == false)
 		{
 			is_prime[num++] = i;
-			for(int j = i + i; j < 1010; j += i)
+			for(int j = i + i; j < maxn; j += i)
 			{
 				prime[j] = true;
 			}
@@ -32,7 +32,8 @@ int main()
 		count++;
 		if(count % 10 == 0)
 			printf("\n");
-		else if(count % 10 != 0 && i < n)
+		else if(i == n);
+		else
 			printf(" ");
 	}
 	return 0;
