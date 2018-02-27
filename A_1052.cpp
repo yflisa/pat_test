@@ -1,17 +1,12 @@
 #include <cstdio>
 #include <algorithm>
 using namespace std;
-#define MAX (100010)
-
-typedef struct tagNode
+const int maxn = 100010;
+struct Node
 {
-	int address;
-	int data;
-	int next;
+	int data, next, pre;
 	bool flag;
-}Node;
-
-Node tNode[MAX] = {0};
+}node[maxn];
 
 bool cmp(Node a, Node b)
 {
@@ -23,39 +18,51 @@ bool cmp(Node a, Node b)
 
 int main()
 {
-	int nNum = 0, nFirstAddr = 0, nAddress = 0;
-	scanf("%d%d", &nNum, &nFirstAddr);
-
-	for(int i = 0; i < nNum; i++)
+	int pre, data, next, start, n;
+	scanf("%d %d", &n, &start);
+	if(n == 1)
 	{
-		scanf("%d", &nAddress);
-		scanf("%d%d", &tNode[nAddress].data, &tNode[nAddress].next);
-		tNode[nAddress].address = nAddress;
-	}
-
-	int nCount = 0, nTmpAddr = nFirstAddr;
-	while(nTmpAddr != -1)
-	{
-		tNode[nTmpAddr].flag = true;
-		nCount++;
-		nTmpAddr = tNode[nTmpAddr].next;
-	}
-
-
-	if(nNum == 0)
-		printf("0 -1");
-	else
-	{
-		sort(tNode, tNode + MAX, cmp);
-		printf("%d %d\n", nCount, tNode[0].address);
-		for(int i = 0; i < nCount; i++)
+		scanf("%d %d %d", &pre, &data, &next);
+		if(pre != start)
+			printf("0 -1\n");
+		else
 		{
-			if(i != nCount - 1)
-				printf("%05d %d %05d\n", tNode[i].address, tNode[i].data, tNode[i+1].address);
-			else
-				printf("%05d %d -1\n", tNode[i].address, tNode[i].data);
+			printf("1 %05d\n", pre);
+			printf("%05d %d -1\n", pre, data);
 		}
-	}	
+		return 0;
+	}
 
+	for(int i = 0; i < n; i++)
+	{
+		scanf("%d %d %d", &pre, &data, &next);
+		node[pre].data = data;
+		node[pre].next = next;
+		node[pre].pre = pre;
+	}
+
+	int count = 0;
+	for(int i = start; i != -1; i = node[i].next)
+	{
+		node[i].flag = true;
+		count++;
+	}
+
+	if(count == 0)
+	{
+		printf("0 -1\n");
+		return 0;
+	}
+
+	sort(node, node + maxn, cmp);
+
+	printf("%d %05d\n", n, node[0].pre);
+	for(int i = 0; i < n; i++)
+	{
+		if(i + 1 != n)
+			printf("%05d %d %05d\n", node[i].pre, node[i].data, node[i+1].pre);
+		else
+			printf("%05d %d -1\n", node[i].pre, node[i].data);
+	}
 	return 0;
 }
