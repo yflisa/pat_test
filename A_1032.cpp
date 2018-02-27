@@ -1,52 +1,39 @@
 #include <cstdio>
-#define MAX (100010)
-typedef struct tagNode
+#include <cstring>
+
+struct Node
 {
+	int next;
 	char data;
-	int  Next; 
 	bool flag;
-}Node;
-Node tNode[MAX] = {0};
+}node[100010];
 
 int main()
 {
-	for(int i = 0; i < MAX; i++)
+	int pre, next, start1, start2, n;
+	char data;
+	scanf("%d %d %d", &start1, &start2, &n);
+	memset(node, 0, sizeof(node));
+	for(int i = 0; i < n; i++)
 	{
-		tNode[i].flag = false;
+		scanf("%d %c %d", &pre, &data, &next);
+		node[pre].data = data;
+		node[pre].next = next;
 	}
 
-	int nAddress1 = 0, nAddress2 = 0, nNum = 0, nNext = 0;
-	char chCharac;
-
-	scanf("%d %d %d", &nAddress1, &nAddress2, &nNum);
-
-	for(int i = 0; i < nNum; i++)
+	for(int i = start1; i != -1; i = node[i].next)
 	{
-		int nTmpAddr = 0;
-		scanf("%d %c %d", &nTmpAddr, &chCharac, &nNext);
-		tNode[nTmpAddr].data = chCharac;
-		tNode[nTmpAddr].Next = nNext;
-	}
-	int i = 0;
-	for(i = nAddress1; i != -1; i = tNode[i].Next)
-	{
-		tNode[i].flag = true;
+		node[i].flag = true;
 	}
 
-	int nFirstNode = -1;
-	for(int i = nAddress2; i != -1; i = tNode[i].Next)
+	for(int i = start2; i != -1; i = node[i].next)
 	{
-		if(tNode[i].flag == true)
+		if(node[i].flag == true)
 		{
-			nFirstNode = i;
-			break;
+			printf("%05d\n", i);
+			return 0;
 		}
 	}
-
-	if(nFirstNode == -1)
-		printf("-1");
-	else
-		printf("%05d", nFirstNode);
-
+	printf("-1\n");
 	return 0;
 }
