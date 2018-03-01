@@ -1,5 +1,11 @@
 #include <cstdio>
-int arr[100010] = {0};
+#include <algorithm>
+using namespace std;
+int arr[1000010] = {0};
+bool cmp(int a, int b)
+{
+	return a > b;
+}
 int main()
 {
 	int n, tmp;
@@ -8,7 +14,8 @@ int main()
 	{
 		scanf("%d", &arr[i]);
 	}
-	int count = 0;
+	int max = 0, count = 0;
+	sort(arr+1, arr+1+n, cmp);
 	for(int i = 1; i <= n; i++)
 	{
 		if(arr[i] > i)
