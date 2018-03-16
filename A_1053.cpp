@@ -1,68 +1,66 @@
 #include <cstdio>
+#include <vector>
 #include <algorithm>
-#include <queue>
 using namespace std;
-#define MAX (100)
-
-typedef struct tagNode
+const int maxn = 110;
+struct Node
 {
-	int nWeight;
+	int weight;
 	vector<int> child;
-}Node;
-
-int nNum = 0, nS = 0, nM = 0;
-Node tNode[MAX] = {0};
-int nPath[MAX] = {0};
+}node[maxn];
+int n, m, sum;
+int ans[maxn] = {0}, xxx = 0;
 bool cmp(int a, int b)
 {
-	return tNode[a].nWeight > tNode[b].nWeight;
+	return node[a].weight > node[b].weight;
 }
-
-void DFS(int index, int nNumNode, int nSum)
+void DFS(int index, int path, int tmp_sum)
 {
-	if(nM < nSum)
+	if(tmp_sum > sum)
 		return;
-	if(nM == nSum)
-	{
-		if(tNode[index].child.size() != 0)
-			return;
 
-		for(int i = 0; i < nNumNode; i++)
+	if(sum == tmp_sum && node[index].child.size() == 0)
+	{
+		for(int i = 0; i < path; i++)
 		{
-			printf("%d", tNode[nPath[i]].nWeight);
-			if(i < nNumNode - 1)
+			printf("%d", node[ans[i]].weight);
+			if(i+1 != path)
 				printf(" ");
 			else
 				printf("\n");
 		}
+		return;
 	}
+	else if(sum == tmp_sum && node[index].child.size() != 0)
+		return;
 
-	for(int i = 0; i < tNode[index].child.size() ; i++)
+	for(int i = 0; i < node[index].child.size(); i++)
 	{
-		int child = tNode[index].child[i];
-		nPath[nNumNode] = child;
-		DFS(child, nNumNode + 1, nSum + tNode[child].nWeight);
+		int child = node[index].child[i];
+		ans[path] = child;
+		DFS(child, path+1, node[child].weight+tmp_sum);
 	}
 }
-int xxxxx()
+int main()
 {
-	scanf("%d%d%d", &nNum, &nS, &nM);
-	for(int i = 0; i < nS; i++)
-		scanf("%d", &tNode[i].nWeight);
-
-	int nTmpNode = 0 , nTmpNum = 0, nChild = 0, nTmpSum = 0;
-	for(int i = 0; i < nNum; i++)
+	scanf("%d%d%d", &n, &m, &sum);
+	for(int i = 0; i < n; i++)
 	{
-		scanf("%d%d", &nTmpNode, &nTmpNum);
-		for(int j = 0; j < nTmpNum; j++)
-		{
-			scanf("%d", &nChild);
-			tNode[nTmpNode].child.push_back(nChild);
-		}
-		sort(tNode[nTmpNode].child.begin(), tNode[nTmpNode].child.end(), cmp);
+		scanf("%d", &node[i].weight);
 	}
 
-	nPath[0] = 0;
-	DFS(0, 1, tNode[0].nWeight);
+	for(int i = 0; i < m; i++)
+	{
+		int parent, k, child;
+		scanf("%d%d", &parent, &k);
+		for(int j = 0; j < k; j++)
+		{
+			scanf("%d", &child);
+			node[parent].child.push_back(child);
+		}
+		sort(node[parent].child.begin(), node[parent].child.end(), cmp);
+	}
+	DFS(0, 1, node[0].weight);
+
 	return 0;
 }
